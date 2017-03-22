@@ -1,2 +1,2 @@
 # mt
-Machine translation.
+Machine translation using IBM models and Berkeley Aligner.
