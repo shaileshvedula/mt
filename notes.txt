@@ -1,0 +1,72 @@
+Uniquename: vedula
+Part A time: 181.096246004
+Part B time: 58.9020628929
+
+A3)
+
+The average AER of IBM Model1 is 0.665 and that of IBM Model 2 is 0.650
+
+The sentence pair for which IBM model2 performed better than IBM model1 is:
+
+[u'Ich', u'bitte', u'Sie', u',', u'sich', u'zu', u'einer', u'Schweigeminute', u'zu', u'erheben', u'.']
+[u'Please', u'rise', u',', u'then', u',', u'for', u'this', u'minute', u"'", u's', u'silence', u'.']
+IBM1 score 0.75, IBM2 score 0.666666666667
+
+The sentence pair for which IBM model1 performed better than IBM model2 is:
+
+[u'Im', u'Parlament', u'besteht', u'der', u'Wunsch', u'nach', u'einer', u'Aussprache', u'im', u'Verlauf', u'dieser', u'Sitzungsperiode', u'in', u'den', u'n\xe4chsten', u'Tagen', u'.']
+[u'You', u'have', u'requested', u'a', u'debate', u'on', u'this', u'subject', u'in', u'the', u'course', u'of', u'the', u'next', u'few', u'days', u',', u'during', u'this', u'part-session', u'.']
+IBM1 score 0.828571428571, IBM2 score 0.885714285714
+
+The reason IBM model 1 has higher average AER compare to model 2 is because it is weak in terms of conducting reordering or dropping words. In most cases words that follow each other in one language will have a different ordering in another language. But model 1 treats all kinds of orderings as equally probable. Also it assumes that a single word in one language will result in same number of words in the translated language which is flase. Most of the time one word in one language become multiple words in another language or a group of words become less in number. An example of this is the german to English translation. German has long words which when translated to English become multiple words. In other words model 1 does not address the fertility issue. Model 2 has additional model for alignemnt which is not present in model 1. The IBM Model 2 addressed this issue by modeling the translation of a foreign input word in position i to a native language word in position j using an alignment probability distribution p(i | j, le, lf)) where le and lf are the length of translated and input sentences.
+
+A4)
+
+IBM Model 1:
+Iterations | Average AER
+10 | 0.665
+20 | 0.661
+30 | 0.660
+40 | 0.657
+50 | 0.658
+60 | 0.658
+
+IBM Model 2:
+Iterations | Average AER
+10 | 0.650
+20 | 0.648
+30 | 0.649
+40 | 0.650
+
+For both the models the average AER first decreases and then increases with the number of iterations. The number of iterations which give lowest error rate are 40 for model 1 and 20 model 2. The total time taken witht he above combinaiton is 277.67 s.
+
+The above behavious is is because in case of EM algorithm we are not maximizing the tru log liklihood but instead maximizing q which is obtianed by minimizing the KL divergence betweent he true liklihood and q. Thus it may happen that after some iterations q is decreasing but the true liklihood is increasing. But since we are using q in our calculations we get a higher AER as is observed above. 
+
+
+B4)
+
+The average AER of the Berkley aligner is 0.534. The berkley aligner performs better than both the IBM models.
+
+B5)
+
+For the following sentence pair the Berkley aligner performs better than the IBM model
+
+[u'Ich', u'erkl\xe4re', u'die', u'am', u'Freitag', u',', u'dem', u'17.', u'Dezember', u'unterbrochene', u'Sitzungsperiode', u'des', u'Europ\xe4ischen', u'Parlaments', u'f\xfcr', u'wiederaufgenommen', u',', u'w\xfcnsche', u'Ihnen', u'nochmals', u'alles', u'Gute', u'zum', u'Jahreswechsel', u'und', u'hoffe', u',', u'da\xdf', u'Sie', u'sch\xf6ne', u'Ferien', u'hatten', u'.']
+[u'I', u'declare', u'resumed', u'the', u'session', u'of', u'the', u'European', u'Parliament', u'adjourned', u'on', u'Friday', u'17', u'December', u'1999', u',', u'and', u'I', u'would', u'like', u'once', u'again', u'to', u'wish', u'you', u'a', u'happy', u'new', u'year', u'in', u'the', u'hope', u'that', u'you', u'enjoyed', u'a', u'pleasant', u'festive', u'period', u'.']
+
+Berkley Aligner: 0.594936708861
+IBM1 & IBM2 : 0.69014084507
+
+Berkley aligner trains two asymmetric models jointly to maximize their joint data liklihood and agreement between them. By intersecting two models the errors between them are cancelled.
+
+
+
+
+
+
+
+
+
+
+
+
